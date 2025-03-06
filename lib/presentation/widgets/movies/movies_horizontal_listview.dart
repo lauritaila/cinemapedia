@@ -43,7 +43,7 @@ class _MoviesHorizontalListviewState extends State<MoviesHorizontalListview> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 350,
+      height: 380,
       child: Column(
         children: [
           if (widget.label != null || widget.subTitle != null)
@@ -110,8 +110,10 @@ class _Slide extends StatelessWidget {
                 Icon(Icons.star_half_rounded, color: Colors.amber[700]),
                 SizedBox(width: 3),
                 Text('${movie.voteAverage}', style: textStyle.bodyMedium?.copyWith(color: Colors.amber[700])),
-                // SizedBox(width: 10),
-                Spacer(),
+                SizedBox(width: 10),
+                // Spacer(),
+                Icon(Icons.star_rate_rounded , color: Colors.black),
+                SizedBox(width: 3),
                 Text(HumanFormats.number(movie.popularity), style: textStyle.bodySmall,)
               ],
             ),
