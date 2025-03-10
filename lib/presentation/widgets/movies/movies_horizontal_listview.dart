@@ -75,52 +75,72 @@ class _Slide extends StatelessWidget {
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme;
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 8),
+      width: 150, // El ancho fijo lo subimos al contenedor raíz
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            width: 150,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.network(movie.posterPath, fit: BoxFit.cover, width: 150, 
-              loadingBuilder: (context, child, loadingProgress) {
-                if(loadingProgress != null){
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: const Center(child: CircularProgressIndicator(strokeWidth: 2)),
+          // IMAGEN
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: SizedBox(
+              
+              child: Image.network(
+                movie.posterPath,
+                fit: BoxFit.cover,
+                width: 150,
+                height: 225,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress != null) {
+                    return const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
+                    );
+                  }
+                  return GestureDetector(
+                    onTap: () => context.push('/movie/${movie.id}'),
+                    child: FadeIn(child: child),
                   );
-                }
-                return GestureDetector(
-                  onTap: () => context.push('/movie/${movie.id}'),
-                  child: FadeIn(child: child));
-              },),
+                },
+              ),
             ),
           ),
 
-          SizedBox(height: 10,),
+          const SizedBox(height: 10),
 
-          SizedBox(
-            width: 150,
-            child: Text(movie.title, maxLines: 2,style:textStyle.titleSmall),
+          // TITULO (con altura fija)
+          Padding(
+            padding: const EdgeInsets.only(left: 5),
+            child: SizedBox(
+              height: 40, // Ajusta esta altura a conveniencia
+              child: Text(
+                movie.title,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: textStyle.titleSmall,
+              ),
+            ),
           ),
 
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
 
-          SizedBox(
-            width: 150,
-            child: Row(
-              children: [
-                Icon(Icons.star_half_rounded, color: Colors.amber[700]),
-                SizedBox(width: 3),
-                Text('${movie.voteAverage}', style: textStyle.bodyMedium?.copyWith(color: Colors.amber[700])),
-                SizedBox(width: 10),
-                // Spacer(),
-                Icon(Icons.star_rate_rounded , color: Colors.black),
-                SizedBox(width: 3),
-                Text(HumanFormats.number(movie.popularity), style: textStyle.bodySmall,)
-              ],
-            ),
+          // RATING / POPULARIDAD
+          Row(
+            children: [
+              Icon(Icons.star_half_rounded, color: Colors.amber[700]),
+              const SizedBox(width: 2),
+              Text(
+                '${(movie.voteAverage * 10).toStringAsFixed(1)}%',
+                style: textStyle.bodyMedium?.copyWith(color: Colors.amber[700]),
+              ),
+              const SizedBox(width: 10),
+              Icon(Icons.star_rate_rounded, color: Colors.black),
+              const SizedBox(width: 2),
+              Text(
+                HumanFormats.number(movie.popularity),
+                style: textStyle.bodySmall,
+              )
+            ],
           ),
         ],
       ),
