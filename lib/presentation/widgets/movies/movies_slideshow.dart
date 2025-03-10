@@ -22,32 +22,27 @@ class MoviesSlideshow extends StatelessWidget {
           margin: EdgeInsets.only(top: 0),
           builder: DotSwiperPaginationBuilder(
             activeColor: colors.primary,
-            color: colors.secondary
-          )
+            color: colors.secondary,
+          ),
         ),
         itemCount: movies.length,
         itemBuilder: (context, index) => _Slide(movie: movies[index]),
-        )
+      ),
     );
   }
 }
 
 class _Slide extends StatelessWidget {
   final Movie movie;
-  const _Slide({required this.movie,});
+  const _Slide({required this.movie});
 
   @override
   Widget build(BuildContext context) {
-
     final decoration = BoxDecoration(
-     borderRadius: BorderRadius.circular(20),
-     boxShadow: const [
-      BoxShadow(
-        color: Colors.black45,
-        blurRadius: 10,
-        offset: Offset(0,10)
-      )
-     ] 
+      borderRadius: BorderRadius.circular(20),
+      boxShadow: const [
+        BoxShadow(color: Colors.black45, blurRadius: 10, offset: Offset(0, 10)),
+      ],
     );
     return Padding(
       padding: const EdgeInsets.only(bottom: 30),
@@ -55,18 +50,49 @@ class _Slide extends StatelessWidget {
         decoration: decoration,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
-          child: Image.network(movie.backdropPath,
-          fit: BoxFit.cover,
-          loadingBuilder: (context, child, loadingProgress) {
-            if(loadingProgress != null) {
-              return const DecoratedBox(
-              decoration: BoxDecoration(
-                color: Colors.black12
-              )
-            );
-            }
-            return FadeIn(child:child);
-          }
+          child: Stack(
+            children: [
+              SizedBox.expand(
+                child: Image.network(
+                  movie.backdropPath,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress != null) {
+                      return const DecoratedBox(
+                        decoration: BoxDecoration(color: Colors.black12),
+                      );
+                    }
+                    return FadeIn(child: child);
+                  },
+                ),
+              ),
+              SizedBox.expand(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      stops: [0.7, 1.0],
+                      colors: [Colors.transparent, Colors.black87],
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 10,
+                left: 15,
+                child: Text(
+                  movie.title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
