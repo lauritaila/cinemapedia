@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
+import 'package:go_router/go_router.dart';
 
 class MoviesSlideshow extends StatelessWidget {
   final List<Movie> movies;
@@ -46,53 +47,56 @@ class _Slide extends StatelessWidget {
     );
     return Padding(
       padding: const EdgeInsets.only(bottom: 30),
-      child: DecoratedBox(
-        decoration: decoration,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: Stack(
-            children: [
-              SizedBox.expand(
-                child: Image.network(
-                  movie.backdropPath,
-                  fit: BoxFit.cover,
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress != null) {
-                      return const DecoratedBox(
-                        decoration: BoxDecoration(color: Colors.black12),
-                      );
-                    }
-                    return FadeIn(child: child);
-                  },
+      child: GestureDetector(
+                  onTap: () => context.push('/movie/${movie.id}'),
+        child: DecoratedBox(
+          decoration: decoration,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Stack(
+              children: [
+                SizedBox.expand(
+                  child: Image.network(
+                    movie.backdropPath,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress != null) {
+                        return const DecoratedBox(
+                          decoration: BoxDecoration(color: Colors.black12),
+                        );
+                      }
+                      return FadeIn(child: child);
+                    },
+                  ),
                 ),
-              ),
-              SizedBox.expand(
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      stops: [0.7, 1.0],
-                      colors: [Colors.transparent, Colors.black87],
+                SizedBox.expand(
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        stops: [0.7, 1.0],
+                        colors: [Colors.transparent, Colors.black87],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Positioned(
-                bottom: 10,
-                left: 15,
-                child: Text(
-                  movie.title,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
+                Positioned(
+                  bottom: 10,
+                  left: 15,
+                  child: Text(
+                    movie.title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
