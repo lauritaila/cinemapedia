@@ -5,3 +5,4 @@ export 'movies/initial_loading_provider.dart';
 export 'movies/movie_detail_provider.dart';
 export 'cast/cast_by_movie_provider.dart';
 export 'cast/cast_repository_provider.dart';
+export 'search/search_movies_provider.dart';
