@@ -12,6 +12,7 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
   List<Movie> initialMovies;
 
   StreamController<List<Movie>> debounceMovies = StreamController.broadcast();
+  StreamController<bool> isLoadingStream = StreamController.broadcast();
   Timer? _debounceTimer;
 
   SearchMovieDelegate({required this.initialMovies, required this.searchMovie});
@@ -19,12 +20,14 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
   void clearStreams() => debounceMovies.close();
 
   void _onQueryChange(String query) {
+    isLoadingStream.add(true);
     if (_debounceTimer?.isActive ?? false) _debounceTimer!.cancel();
 
     _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
       final movies = await searchMovie(query);
       initialMovies = movies;
       debounceMovies.add(movies);
+      isLoadingStream.add(false);
     });
   }
 
@@ -61,13 +64,33 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
-      FadeIn(
+      StreamBuilder<bool>(
+        stream: isLoadingStream.stream,
+        initialData: false,
+        builder: (context, snapshot) {
+          if (snapshot.data ?? false) {
+            return FadeIn(
+              child: SpinPerfect(
+                duration: const Duration(seconds: 2),
+                spins:10,
+                infinite: true,
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.refresh_rounded),  
+                )
+              ),
+            );
+          }
+      return FadeIn(
         animate: query.isNotEmpty,
         child: IconButton(
           onPressed: () => query = '',
           icon: Icon(Icons.clear_rounded),
         ),
-      ),
+      );
+        }
+      )
+
     ];
   }
 
