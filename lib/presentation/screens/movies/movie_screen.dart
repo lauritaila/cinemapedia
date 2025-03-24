@@ -132,8 +132,8 @@ class _CustomSliverAppBar extends ConsumerWidget {
             data: (data) => data ? const Icon(Icons.favorite_rounded, color: Colors.red) : const Icon(Icons.favorite_border_rounded),
             error: (_, __) => Icon(Icons.favorite_border_rounded), 
             loading: () => CircularProgressIndicator(strokeWidth: 2)),
-          onPressed: () {
-            ref.watch(localStorageRepositoryProvider).toggleFavorite(movie);
+          onPressed: () async {
+            await ref.read(favoriteMovieProvider.notifier).toggleFavorite(movie);
             ref.invalidate(isFavoriteMovieProvider(movie.id));
           },
         ),
