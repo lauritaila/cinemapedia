@@ -16,7 +16,7 @@ class LocalStorageRepositoryImpl extends LocalStorageRespository{
   }
 
   @override
-  Future<void> toggleFavorite(Movie movie) {
+  Future<bool> toggleFavorite(Movie movie) {
     return datasource.toggleFavorite(movie);
   }
 }
