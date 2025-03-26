@@ -10,7 +10,7 @@ class HomeView extends ConsumerStatefulWidget {
   HomeViewState createState() => HomeViewState();
 }
 
-class HomeViewState extends ConsumerState<HomeView> {
+class HomeViewState extends ConsumerState<HomeView> with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
@@ -22,6 +22,7 @@ class HomeViewState extends ConsumerState<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
 
     final initialLoading = ref.watch(initialLoadingProvider);
     if(initialLoading) return FullScreenLoader();
@@ -48,26 +49,26 @@ class HomeViewState extends ConsumerState<HomeView> {
               children: [
                 SizedBox(height: 10),
                 MoviesSlideshow(movies: slideShowMovies),
-                MoviesHorizontalListview(
+                MovieHorizontalListview(
                   movies: nowPlayingMovies,
-                  label: 'In theaters',
+                  title: 'In theaters',
                   subTitle: 'Monday 20',
                   loadNextPage:() =>ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
                 ),
-                MoviesHorizontalListview(
+                MovieHorizontalListview(
                   movies: upcomingMovies,
-                  label: 'Soon in theaters',
+                  title: 'Soon in theaters',
                   // subTitle: '',
                   loadNextPage:() =>ref.read(upcomingMoviesProvider.notifier).loadNextPage(),
                 ),
-                MoviesHorizontalListview(
+                MovieHorizontalListview(
                   movies: popularMovies,
-                  label: 'Popular',
+                title: 'Popular',
                   loadNextPage:() =>ref.read(popularMoviesProvider.notifier).loadNextPage(),
                 ),
-                MoviesHorizontalListview(
+                MovieHorizontalListview(
                   movies: topRatedMovies,
-                  label: 'Best rating',
+                  title: 'Best rating',
                   // subTitle: 'Monday 20',
                   loadNextPage:() =>ref.read(topRatedMoviesProvider.notifier).loadNextPage(),
                 ),
@@ -79,4 +80,7 @@ class HomeViewState extends ConsumerState<HomeView> {
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
