@@ -1,11 +1,11 @@
 
 
-import 'package:cinemapedia/domain/datasources/cast_datasources.dart';
+import 'package:cinemapedia/domain/datasources/cast_datasource.dart';
 import 'package:cinemapedia/domain/entities/cast.dart';
 import 'package:cinemapedia/domain/repositories/cast_repository.dart';
 
 class CastRespositoryImpl extends CastRepository{
-    final CastDatasources datasource;
+    final CastDatasource datasource;
 
   CastRespositoryImpl(this.datasource);
 

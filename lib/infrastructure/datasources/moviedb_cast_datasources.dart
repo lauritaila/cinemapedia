@@ -1,11 +1,11 @@
 import 'package:cinemapedia/config/constants/environment.dart';
-import 'package:cinemapedia/domain/datasources/cast_datasources.dart';
+import 'package:cinemapedia/domain/datasources/cast_datasource.dart';
 import 'package:cinemapedia/domain/entities/cast.dart';
 import 'package:cinemapedia/infrastructure/mappers/cast_mapper.dart';
 import 'package:cinemapedia/infrastructure/models/moviedb/moviedb_credits.dart';
 import 'package:dio/dio.dart';
 
-class CastMovieDBDatasources extends CastDatasources{
+class CastMovieDBDatasources extends CastDatasource{
 
     final dio = Dio(BaseOptions(
     baseUrl: 'https://api.themoviedb.org/3',

@@ -1,5 +1,5 @@
 import 'package:cinemapedia/domain/entities/cast.dart';
 
-abstract class CastDatasources{
+abstract class CastDatasource{
   Future<List<Cast>> getCastByMovie(String movieId);
 }
