@@ -45,12 +45,12 @@ class _MovieHorizontalListviewState extends State<MovieHorizontalListview> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 350,
+      height: 310,
       child: Column(
         children: [
           if (widget.title != null || widget.subTitle != null)
             _Title(title: widget.title, subTitle: widget.subTitle),
-
+            SizedBox(height: 5),
           Expanded(
             child: ListView.builder(
               controller: scrollController,
@@ -77,7 +77,7 @@ class _Slide extends StatelessWidget {
     final textStyle = Theme.of(context).textTheme;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8),
-      width: 150, // El ancho fijo lo subimos al contenedor raíz
+      width: 120, // El ancho fijo lo subimos al contenedor raíz
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -89,13 +89,14 @@ class _Slide extends StatelessWidget {
               child: Image.network(
                 movie.posterPath,
                 fit: BoxFit.cover,
-                width: 150,
-                height: 225,
+                width: 120,
+                height: 170,
                 loadingBuilder: (context, child, loadingProgress) {
                   if (loadingProgress != null) {
                     return const Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
+                      child: SizedBox(width: 120,
+                height: 150,child: Center(child: CircularProgressIndicator(strokeWidth: 2))),
                     );
                   }
                   return GestureDetector(
