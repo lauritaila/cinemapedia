@@ -33,7 +33,7 @@ class CastByMovie extends ConsumerWidget {
     final actors = actorsByMovie[movieId]!;
 
     return SizedBox(
-      height: 300,
+      height: 270,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: actors.length,
@@ -51,15 +51,21 @@ class CastByMovie extends ConsumerWidget {
                 FadeInRight(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
-                    child: FadeInImage(
-                      height: 180,
-                      width: 135,
-                      fit: BoxFit.cover,
-                      placeholder: const AssetImage('assets/loaders/bottle-loader.gif'),
-                      image: NetworkImage(
-                        actor.profilePath,
-                      ),
-                    )
+                    child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Image.network(
+            actor.profilePath,
+            fit: BoxFit.cover,
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress != null) {
+                return const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
+                );
+              }
+              return child;
+            },
+          ))
                   ),
                 ),
 
