@@ -95,8 +95,8 @@ class _Slide extends StatelessWidget {
                   if (loadingProgress != null) {
                     return const Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: SizedBox(width: 120,
-                height: 150,child: Center(child: CircularProgressIndicator(strokeWidth: 2))),
+                      child: SizedBox(
+                height: 154,child: Center(child: CircularProgressIndicator(strokeWidth: 2))),
                     );
                   }
                   return GestureDetector(
