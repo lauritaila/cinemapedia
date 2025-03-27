@@ -73,11 +73,14 @@ class _MovieDetails extends StatelessWidget {
         //* Actores de la película
         CastByMovie(movieId: movie.id.toString() ),
 
+        SizedBox(height: 10,),
         //* Videos de la película (si tiene)
         VideosFromMovie( movieId: movie.id ),
 
+        SizedBox(height: 20,),
         //* Películas similares
         SimilarMovies(movieId: movie.id ),
+        SizedBox(height: 40,)
 
       ],
     );
@@ -99,7 +102,7 @@ class _Genres extends StatelessWidget {
         width: double.infinity,
         child: Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
-          alignment: WrapAlignment.center,
+          alignment: WrapAlignment.start,
           children: [
             ...movie.genreIds.map((gender) => Container(
               margin: const EdgeInsets.only( right: 10),
