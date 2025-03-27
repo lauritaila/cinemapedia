@@ -30,7 +30,6 @@ class HomeViewState extends ConsumerState<HomeView> with AutomaticKeepAliveClien
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
     final upcomingMovies = ref.watch(upcomingMoviesProvider);
     final topRatedMovies = ref.watch(topRatedMoviesProvider);
-    final popularMovies = ref.watch(popularMoviesProvider);
 
     final slideShowMovies = ref.watch(moviesSlideshowProvider);
 
@@ -60,11 +59,6 @@ class HomeViewState extends ConsumerState<HomeView> with AutomaticKeepAliveClien
                   title: 'Soon in theaters',
                   // subTitle: '',
                   loadNextPage:() =>ref.read(upcomingMoviesProvider.notifier).loadNextPage(),
-                ),
-                MovieHorizontalListview(
-                  movies: popularMovies,
-                title: 'Popular',
-                  loadNextPage:() =>ref.read(popularMoviesProvider.notifier).loadNextPage(),
                 ),
                 MovieHorizontalListview(
                   movies: topRatedMovies,
