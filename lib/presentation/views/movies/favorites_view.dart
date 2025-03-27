@@ -17,7 +17,7 @@ class FavoritesViewState extends ConsumerState<FavoritesView> with AutomaticKeep
   bool isLastPage = false;
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
     loadNextPage();
   }
