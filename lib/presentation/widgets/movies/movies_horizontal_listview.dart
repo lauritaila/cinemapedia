@@ -1,27 +1,28 @@
-import 'package:cinemapedia/config/helpers/human_formats.dart';
+import 'package:cinemapedia/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:go_router/go_router.dart';
 
-class MoviesHorizontalListview extends StatefulWidget {
+class MovieHorizontalListview extends StatefulWidget {
   final List<Movie> movies;
-  final String? label;
+  final String? title;
   final String? subTitle;
   final VoidCallback? loadNextPage;
 
-  const MoviesHorizontalListview(
-      {super.key,
-      required this.movies,
-      this.label,
-      this.subTitle,
+  const MovieHorizontalListview({
+    super.key,
+    required this.movies,
+    this.title,
+    this.subTitle,
       this.loadNextPage});
 
   @override
-  State<MoviesHorizontalListview> createState() => _MoviesHorizontalListviewState();
+  State<MovieHorizontalListview> createState() =>
+      _MovieHorizontalListviewState();
 }
 
-class _MoviesHorizontalListviewState extends State<MoviesHorizontalListview> {
+class _MovieHorizontalListviewState extends State<MovieHorizontalListview> {
   final scrollController = ScrollController();
 
   @override
@@ -44,12 +45,12 @@ class _MoviesHorizontalListviewState extends State<MoviesHorizontalListview> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 370,
+      height: 310,
       child: Column(
         children: [
-          if (widget.label != null || widget.subTitle != null)
-          _Title(title: widget.label, subTitle: widget.subTitle),
-          SizedBox(height: 10),
+          if (widget.title != null || widget.subTitle != null)
+            _Title(title: widget.title, subTitle: widget.subTitle),
+            SizedBox(height: 5),
           Expanded(
             child: ListView.builder(
               controller: scrollController,
@@ -60,7 +61,7 @@ class _MoviesHorizontalListviewState extends State<MoviesHorizontalListview> {
                 return FadeInRight(child: _Slide(movie: widget.movies[index]));
               },
             ),
-          )
+          ),
         ],
       ),
     );
@@ -76,7 +77,7 @@ class _Slide extends StatelessWidget {
     final textStyle = Theme.of(context).textTheme;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8),
-      width: 150, // El ancho fijo lo subimos al contenedor raíz
+      width: 120, // El ancho fijo lo subimos al contenedor raíz
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -88,13 +89,14 @@ class _Slide extends StatelessWidget {
               child: Image.network(
                 movie.posterPath,
                 fit: BoxFit.cover,
-                width: 150,
-                height: 225,
+                width: 120,
+                height: 170,
                 loadingBuilder: (context, child, loadingProgress) {
                   if (loadingProgress != null) {
                     return const Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
+                      child: SizedBox(
+                height: 154,child: Center(child: CircularProgressIndicator(strokeWidth: 2))),
                     );
                   }
                   return GestureDetector(
@@ -122,26 +124,8 @@ class _Slide extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(height: 5),
-
-          // RATING / POPULARIDAD
-          Row(
-            children: [
-              Icon(Icons.star_half_rounded, color: Colors.amber[700]),
-              const SizedBox(width: 2),
-              Text(
-                '${(movie.voteAverage * 10).toStringAsFixed(1)}%',
-                style: textStyle.bodyMedium?.copyWith(color: Colors.amber[700]),
-              ),
-              const SizedBox(width: 10),
-              Icon(Icons.star_rate_rounded, color: Colors.black),
-              const SizedBox(width: 2),
-              Text(
-                HumanFormats.number(movie.popularity),
-                style: textStyle.bodySmall,
-              )
-            ],
-          ),
+          //* Rating
+          MovieRating(voteAverage: movie.voteAverage),
         ],
       ),
     );
@@ -166,10 +150,10 @@ class _Title extends StatelessWidget {
           Spacer(),
           if (subTitle != null)
             FilledButton(
-                onPressed: () {},
+              onPressed: () {},
                 style: const ButtonStyle(
                   visualDensity: VisualDensity.compact,
-                ),
+            ),
                 child: Text(subTitle!))
         ],
       ),

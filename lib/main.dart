@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:cinemapedia/config/router/app_router.dart';
 import 'package:cinemapedia/config/theme/app_theme.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
@@ -17,6 +18,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting();
     return MaterialApp.router(
       routerConfig: appRouter,
       debugShowCheckedModeBanner: false,  
