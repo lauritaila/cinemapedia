@@ -20,13 +20,21 @@ class MoviePosterLink extends StatelessWidget {
         onTap: () => context.push('/home/0/movie/${ movie.id }'),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
-          child: FadeInImage(
-            height: 180,
+          child: Image.network(
+            movie.posterPath,
             fit: BoxFit.cover,
-            placeholder: const AssetImage('assets/loaders/bottle-loader.gif'),
-            image: NetworkImage(movie.posterPath),
-          ),
-        ),
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress != null) {
+                return const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    height: 170,
+                    child: Center(child: CircularProgressIndicator(strokeWidth: 2))),
+                );
+              }
+              return child;
+            },
+          )),
       ),
     );
   }
