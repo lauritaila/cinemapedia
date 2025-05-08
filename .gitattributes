@@ -1,0 +1,10 @@
+# Priorizar Dart como el lenguaje principal
+*.dart linguist-detectable=true
+*.dart linguist-language=Dart
+
+# Ignorar archivos de CMake y otros lenguajes no deseados
+CMakeLists.txt linguist-detectable=false
+*.cmake linguist-detectable=false
+*.c linguist-detectable=false
+*.cpp linguist-detectable=false
+*.h linguist-detectable=false
