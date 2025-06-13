@@ -50,6 +50,18 @@ Welcome to Cinemapedia, a Flutter-based movie discovery application that allows 
    ```bash
    flutter run
 
+## Customization 🎨
+You can easily customize key parts of the application using the following commands:
+
+1. **Change Splash Screen**: To update the native splash screen that appears when the app starts.
+   ```bash
+   dart run flutter_native_splash:create
+5. **Change Launcher Icon**: To generate new app icons for different platforms.
+   ```bash
+   dart run flutter_launcher_icons:generate
+6. **Change Bundle ID / Package Name**: To update the application's unique identifier.
+   ```bash
+   dart run change_app_package_name:main com.new.package.name
 ## Project Structure (Clean Architecture Inspired)
 
 The app follows a basic structure inspired by Clean Architecture, separating concerns into layers:
@@ -113,6 +125,10 @@ This structure ensures a clean separation of concerns, making the app easier to 
 - **Features**:
     - [intl](https://pub.dev/packages/intl ): Provides internationalization and localization utilities.
     - [youtube_player_flutter](https://pub.dev/packages/youtube_player_flutter ): Video playback.
+-  **Production**:
+    - [flutter_native_splash](https://pub.dev/packages/flutter_native_splash): Native splash screen.
+    - [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons): App icons.
+    - [change_app_package_name](https://pub.dev/packages/change_app_package_name): Package name.
 
 ## Contributing
 Contributions are welcome! If you have any ideas to improve the app, please open an issue or submit a pull request.
