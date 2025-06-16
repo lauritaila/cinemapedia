@@ -195,7 +195,7 @@ class _CustomSliverAppBar extends ConsumerWidget {
         IconButton(
           icon: isFavoriteMovie.when(
             data: (data) => data ? const Icon(Icons.favorite_rounded, color: Colors.red) : const Icon(Icons.favorite_border_rounded),
-            error: (_, __) => Icon(Icons.favorite_border_rounded), 
+            error: (_, _) => Icon(Icons.favorite_border_rounded), 
             loading: () => CircularProgressIndicator(strokeWidth: 2)),
           onPressed: () async {
             await ref.read(favoriteMovieProvider.notifier).toggleFavorite(movie);
