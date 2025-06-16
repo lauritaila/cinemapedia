@@ -20,8 +20,11 @@ Welcome to Cinemapedia, a Flutter-based movie discovery application that allows 
 
 ## Screenshots
 
-<img src="screenshots/screenshot1.jpeg" height="350" alt="Screenshot 1" /> 
 <img src="screenshots/screenshot2.jpeg" height="350" alt="Screenshot 2" />
+<img src="screenshots/screenshot1.jpeg" height="350" alt="Screenshot 1" /> 
+<img src="screenshots/screenshot4.jpeg" height="350" alt="Screenshot 2" />
+<img src="screenshots/screenshot5.jpeg" height="350" alt="Screenshot 2" />
+<img src="screenshots/screenshot3.jpeg" height="350" alt="Screenshot 2" />
 
 ## Requirements
 
