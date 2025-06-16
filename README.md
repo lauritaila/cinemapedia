@@ -50,7 +50,8 @@ Welcome to Cinemapedia, a Flutter-based movie discovery application that allows 
    ```bash
    flutter run
 
-## Customization 🎨
+## Customization for production🎨
+
 You can easily customize key parts of the application using the following commands:
 
 1. **Change Splash Screen**: To update the native splash screen that appears when the app starts.
@@ -129,6 +130,15 @@ This structure ensures a clean separation of concerns, making the app easier to 
     - [flutter_native_splash](https://pub.dev/packages/flutter_native_splash): Native splash screen.
     - [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons): App icons.
     - [change_app_package_name](https://pub.dev/packages/change_app_package_name): Package name.
+
+## Production Build for Android
+
+All the documentation to deploy the app in production for Android is in the [Flutter Docs - Build and release an Android app](https://docs.flutter.dev/deployment/android).
+
+To build the app for Android, run the following command:
+```bash
+flutter build appbundle
+```
 
 ## Contributing
 Contributions are welcome! If you have any ideas to improve the app, please open an issue or submit a pull request.
